@@ -1,7 +1,12 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<!-- saved from url=(0084)file:///C:/Users/Hendrik/Desktop/Seminarit%C3%B6%C3%B6%20helifailid/Veeb/pleier.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<title>demo player</title>
 
 <style>
 
@@ -17,13 +22,12 @@
   background-color: #b9b9b9;
   border: 0px solid #ccc;
   margin-top: 2px;
-  height: 46x;
   border-radius: 5px;
   overflow: hidden;
   position: absolute;
   top: 40px;
-  left: 5;
-  right: 5;
+  left: 5px;
+  right: 5px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -83,7 +87,6 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    cursor: pointer;
   }
 
   #progress-bar {
@@ -99,14 +102,17 @@
   
 </style>
 
-</head><body><div id="container">
+</head>
+
+<body>
+<div id="container">
   <div>
   <button id="play-btn"><i class="material-icons">play_circle_outline</i></button> 
   </div>
   <div id="playlist-container">
     <ul id="playlist">
-      <li class="active"><a class="audio" data-src="./demo/Diskreeditud.mp3">&#160;&#160;&#160;Ülediskreeditud</a></li>
-      <li class=""><a class="audio" data-src="./demo/Diskreetimata.mp3">&#160;&#160;&#160;Ülediskreetimata</a></li>
+      <li class="active"><a class="audio" data-src="./demo/Diskreeditud.mp3">&#160;&#160;&#160;&Uuml;lediskreeditud</a></li>
+      <li class=""><a class="audio" data-src="./demo/Diskreetimata.mp3">&#160;&#160;&#160;&Uuml;lediskreetimata</a></li>
     </ul>
   </div>
   <div id="progress">
@@ -151,24 +157,10 @@ playBtn.addEventListener('click', function() {
   }
 });
 
-  progressBar.addEventListener("click", function(e) {
-    var pos = (e.pageX - progressBar.offsetLeft) / progressBar.offsetWidth;
-    audio.currentTime = pos * audio.duration;
+  audio.addEventListener("timeupdate", function() {
+    var progress = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = progress + "%";
   });
-
-  progress.addEventListener("click", function(e) {
-  var pos = (e.pageX - progress.offsetLeft) / progress.offsetWidth;
-  audio.currentTime = pos * audio.duration;
-});
-
-const progress = document.querySelector("#progress");
-
-progress.addEventListener("click", function(event) {
-  const offset = event.offsetX;
-  const width = this.clientWidth;
-  const duration = audio.duration;
-  audio.currentTime = (offset / width) * duration;
-});
 
   audio.addEventListener("ended", function() {
   audio.currentTime = 0;
